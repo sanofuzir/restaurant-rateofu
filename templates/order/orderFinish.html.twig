@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col mybox">
+    	<h2 style="text-indent: 50px;">{% trans from "app" %}Your order has been ordered{% endtrans %}</h2>
+    	<br>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <a href="{{ path('home') }}" class="rounded float-right" style="float: right; margin: 50px 15px;">
+      <button type="button" class="btn btn-secondary">
+        <i class="fas fa-backward"></i>&nbsp;{% trans from "app" %}Back{% endtrans %}
+      </button>
+    </a>
+  </div>
+</div>
+{% endblock %}

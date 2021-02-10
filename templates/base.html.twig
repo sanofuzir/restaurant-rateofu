@@ -2,18 +2,91 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <title>{% block title %}TestApp!{% endblock %}</title>
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {% block navbar %}        
+            <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+              <a class="navbar-brand" href="{{ path('home') }}" title="Test app">
+                <img src="/logo.png" alt="Test app" class="center" style="width: 50px;">
+              </a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="" title="Home"><i class="fas fa-home" style="font-size: 22px; color: white;"></i></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="{{ path('items_list') }}">{% trans from "app" %}Items{% endtrans %}<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="{{ path('orders_list') }}">{% trans from "app" %}Orders{% endtrans %}</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="{{ path('users_list') }}">{% trans from "app" %}Users{% endtrans %}</a>
+                      </li>
+                   {% else %}
+                    <li class="nav-item" style="width: 100px;"> 
+                      <a class="nav-link" style="color: white;" href="{{ path('order_my') }}">My Order</a>
+                    </li>
+                  {% endif %}
+                </ul>
+                  {% if app.user %}
+                <ul class="navbar-nav" style="width: 100%; padding-left: 1200px;">
+                    <li class="nav-item">
+                      <a class="nav-link" style="color: white;">Hello {{ app.user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color: white;" href="/logout" title="LOGOUT">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-dash" viewBox="0 0 16 16">
+                              <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                              <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                      </a>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav" style="width: 100%; padding-left: 1200px;">
+                    <li class="nav-item">
+                      <a class="nav-link" style="color: white;" href="/login" title="LOGIN">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                      </a>
+                    </li>
+                </ul>
+                {% endif %}
+              </div>
+            </nav>
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+
+        <div class="container" style="margin-top: 60px;">
+          {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+              <div class="alert alert-{{type}}" data-alert="alert" role="alert">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <div class="alert-heading">{{ message }}</div>
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+
     </body>
 </html>
+

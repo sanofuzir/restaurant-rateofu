@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order add/edit{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row justify-content-end">
+    <h1 class="header">{% trans from "app" %}Administration{% endtrans %}&nbsp;>>&nbsp;{% trans from "app" %}Add/Edit Order{% endtrans %}</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col mybox">
+    	{{ form(form) }}
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <a href="{{ path('orders_list') }}" class="rounded float-right" style="float: right; margin: 50px 15px;">
+      <button type="button" class="btn btn-secondary">
+        <i class="fas fa-backward"></i>&nbsp;{% trans from "app" %}Back{% endtrans %}
+      </button>
+    </a>
+  </div>
+</div>
+{% endblock %}

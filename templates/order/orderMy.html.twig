@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row justify-content-end">
+    <h1 class="header">{% trans from "app" %}Administration{% endtrans %}&nbsp;>>&nbsp;{% trans from "app" %}Order{% endtrans %} {{ order.id }}</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col mybox">
+    	<h2 style="text-indent: 50px;">{% trans from "app" %}My Order{% endtrans %} {{ order.id }}</h2>
+    	<br>
+    	<table class="table table-hover">
+    		<thead>
+				<tr>    				
+              <th scope="col">{% trans from "app" %}Id{% endtrans %}</th>
+              <th scope="col">{% trans from "app" %}Status{% endtrans %}</th>
+		          <th scope="col">{% trans from "app" %}items{% endtrans %}</th>
+			      	<th scope="col">{% trans from "app" %}Operation{% endtrans %}</th>
+				</tr>
+    		</thead>
+			<tbody>
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.status }}</td>
+          <td>
+            {% for item in order.items %}
+            <ul>
+              <li>{{ item.name }}</li>
+            </ul>
+          {% endfor %}
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+  				
+			</tbody>
+    	</table>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <a href="{{ path('home') }}" class="rounded float-right" style="float: right; margin: 50px 15px;">
+      <button type="button" class="btn btn-secondary">
+        <i class="fas fa-backward"></i>&nbsp;{% trans from "app" %}Back{% endtrans %}
+      </button>
+    </a>
+  </div>
+</div>
+{% endblock %}

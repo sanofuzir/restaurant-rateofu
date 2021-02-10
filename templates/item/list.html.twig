@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row justify-content-start">
+    <h1 class="header">{% trans from "app" %}Restavration{% endtrans %}&nbsp;>>&nbsp;{% trans from "app" %}Menu{% endtrans %}</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col mybox">
+    	<h2 style="text-indent: 50px;">{% trans from "app" %}Items{% endtrans %}</h2>
+    	<br>
+    	<table class="table table-hover">
+    		<thead>
+				<tr>    				
+		            <th scope="col">{% trans from "app" %}Name{% endtrans %}</th>
+                <th scope="col">{% trans from "app" %}Type{% endtrans %}</th>
+		            <th scope="col">{% trans from "app" %}Description{% endtrans %}</th>
+		            <th scope="col">{% trans from "app" %}Price{% endtrans %}</th>
+			      	<th scope="col" style="text-align: right;">{% trans from "app" %}Add to menu{% endtrans %}</th>
+				</tr>
+    		</thead>
+			<tbody>
+  				{% for item in items %}
+				    <tr>
+				      <td scope="row">{{ item.name }}</td>
+                  <td>{{ item.type }}</td>
+		              <td>{{ item.description }}</td>
+		              <td>{{ item.price }}€</td>
+                  <td>
+                    <a href="{{ path('add_item_to_order', {'id': order.id, 'item_id': item.id}) }}" class="rounded float-right">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                      </svg>
+                    </a>
+                  </td>
+				    </tr>
+  				{% endfor %}
+			</tbody>
+    	</table>
+
+                <a href="{{ path('order_status_finish', {'id': order.id}) }}" class="rounded float-right" title="finished">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                  </svg>
+                </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
